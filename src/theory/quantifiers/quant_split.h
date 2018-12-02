@@ -33,9 +33,11 @@ private:
   NodeSet d_added_split;
 public:
   QuantDSplit( QuantifiersEngine * qe, context::Context* c );
+  ~QuantDSplit() throw() {};
+
   /** determine whether this quantified formula will be reduced */
   void preRegisterQuantifier( Node q );
-  
+
   /* whether this module needs to check this round */
   bool needsCheck( Theory::Effort e );
   /* Call during quantifier engine's check */

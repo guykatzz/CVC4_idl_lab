@@ -184,7 +184,7 @@ private:
   bool d_consistent_ee;
 public:
   TermDb( context::Context* c, context::UserContext* u, QuantifiersEngine* qe );
-  ~TermDb(){}
+  ~TermDb() throw() {}
   /** boolean terms */
   Node d_true;
   Node d_false;
@@ -197,7 +197,7 @@ public:
   /** reset (calculate which terms are active) */
   bool reset( Theory::Effort effort );
   /** identify */
-  std::string identify() const { return "TermDb"; }  
+  std::string identify() const { return "TermDb"; }
 private:
   /** map from operators to ground terms for that operator */
   std::map< Node, std::vector< Node > > d_op_map;
@@ -218,7 +218,7 @@ private:
   /** has map */
   std::map< Node, bool > d_has_map;
   /** map from reps to a term in eqc in d_has_map */
-  std::map< Node, Node > d_term_elig_eqc;  
+  std::map< Node, Node > d_term_elig_eqc;
   /** set has term */
   void setHasTerm( Node n );
   /** evaluate term */
@@ -273,7 +273,7 @@ public:
   Node getEligibleTermInEqc( TNode r );
   /** is inst closure */
   bool isInstClosure( Node r );
-  
+
 //for model basis
 private:
   //map from types to model basis terms
@@ -334,7 +334,7 @@ public:
   static bool hasInstConstAttr( Node n );
   static Node getBoundVarAttr( Node n );
   static bool hasBoundVarAttr( Node n );
-  
+
 private:
   /** get bound vars */
   static void getBoundVars2( Node n, std::vector< Node >& vars, std::map< Node, bool >& visited );
@@ -419,7 +419,7 @@ private:
   //free variables
   std::map< TypeNode, std::vector< Node > > d_cn_free_var;
   // get canonical term, return null if it contains a term apart from handled signature
-  Node getCanonicalTerm( TNode n, std::map< TypeNode, unsigned >& var_count, std::map< TNode, TNode >& subs, bool apply_torder, 
+  Node getCanonicalTerm( TNode n, std::map< TypeNode, unsigned >& var_count, std::map< TNode, TNode >& subs, bool apply_torder,
                          std::map< TNode, Node >& visited );
 public:
   /** get id for operator */
@@ -589,7 +589,7 @@ public:
   ~TermDbSygus(){}
   bool reset( Theory::Effort e );
   std::string identify() const { return "TermDbSygus"; }
-  
+
   bool isRegistered( TypeNode tn );
   TypeNode sygusToBuiltinType( TypeNode tn );
   int getKindArg( TypeNode tn, Kind k );
@@ -642,7 +642,7 @@ public:
   static Kind getOperatorKind( Node op );
   /** print sygus term */
   static void printSygusTerm( std::ostream& out, Node n, std::vector< Node >& lvs );
-  
+
   /** get anchor */
   static Node getAnchor( Node n );
 //for eager instantiation

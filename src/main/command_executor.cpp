@@ -247,30 +247,34 @@ void CommandExecutor::printStatsFilterZeros(std::ostream& out,
                                             const std::string& statsString) {
   // read each line, if a number, check zero and skip if so
   // Stat are assumed to one-per line: "<statName>, <statValue>"
-
   std::istringstream iss(statsString);
   std::string statName, statValue;
 
   std::getline(iss, statName, ',');
 
-  while( !iss.eof() ) {
-
+  while (!iss.eof())
+  {
     std::getline(iss, statValue, '\n');
 
-    double curFloat;
-    bool isFloat = (std::istringstream(statValue) >> curFloat);
+    bool skip = false;
+    try
+    {
+      double dval = std::stod(statValue);
+      skip = (dval == 0.0);
+    }
+    // Value can not be converted, don't skip
+    catch (const std::invalid_argument&) {}
+    catch (const std::out_of_range&) {}
 
-    if( (isFloat && curFloat == 0) ||
-        statValue == " \"0\"" ||
-        statValue == " \"[]\"") {
-      // skip
-    } else {
+    skip = skip || (statValue == " \"0\"" || statValue == " \"[]\"");
+
+    if (!skip)
+    {
       out << statName << "," << statValue << std::endl;
     }
 
     std::getline(iss, statName, ',');
   }
-
 }
 
 void CommandExecutor::flushOutputStreams() {

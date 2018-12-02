@@ -36,7 +36,7 @@ private:
   QuantifiersEngine* d_qe;
 public:
   EqualityQueryInstProp( QuantifiersEngine* qe );
-  ~EqualityQueryInstProp(){};
+  ~EqualityQueryInstProp() throw() {};
   /** reset */
   bool reset( Theory::Effort e );
   /** identify */
@@ -159,7 +159,7 @@ private:
   void debugPrintExplanation( std::vector< Node >& exp, const char * c );
 public:
   InstPropagator( QuantifiersEngine* qe );
-  ~InstPropagator(){}
+  ~InstPropagator() throw() {}
   /** reset */
   bool reset( Theory::Effort e );
   /** identify */
