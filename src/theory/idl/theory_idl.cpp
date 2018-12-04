@@ -120,7 +120,7 @@ void TheoryIdl::check(Effort level) {
 void TheoryIdl::processAssertion(TNode assertion) {
 
     // TODO: the SAT solver may assign some of our literals to false,
-    // i.e. we might see an assertion like NOT(x-y<1). We need to
+    // i.e. we might see an assertion like NOT(x-y<=c). We need to
     // handle these assertions correctly, by transforming them into
     // the desired x-y<=c form.
 
