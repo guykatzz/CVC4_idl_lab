@@ -62,7 +62,7 @@ void TheoryIdl::postsolve() {
   delete [] d_valid;
   d_numVars = 0;
 }
-  
+
 Node TheoryIdl::ppRewrite(TNode atom) {
     Debug("theory::idl::rewrite") << "TheoryIdl::ppRewrite(): processing " << atom << std::endl;
     NodeManager* nm = NodeManager::currentNM();
@@ -118,6 +118,12 @@ void TheoryIdl::check(Effort level) {
 }
 
 void TheoryIdl::processAssertion(TNode assertion) {
+
+    // TODO: the SAT solver may assign some of our literals to false,
+    // i.e. we might see an assertion like NOT(x-y<1). We need to
+    // handle these assertions correctly, by transforming them into
+    // the desired x-y<=c form.
+
   Assert(assertion.getKind() == kind::LEQ);
   Assert(assertion[0].getKind() == kind::MINUS);
   TNode var1 = assertion[0][0];
@@ -166,7 +172,7 @@ void TheoryIdl::printMatrix(Rational** matrix, bool** valid) {
   }
 }
 
-  
+
 } /* namepsace CVC4::theory::idl */
 } /* namepsace CVC4::theory */
 } /* namepsace CVC4 */
